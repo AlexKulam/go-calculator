@@ -75,7 +75,7 @@ func first_act() {
 
 func second_act() {
 
-	fmt.Println("Ввыберите действие:\n0-(вернутся назад); 1-(возведение в степень); 2-(вычислить корень)")
+	fmt.Println("Ввыберите действие:\n0-(вернутся назад); 1-(возведение в степень); 2-(вычислить корень); 3-(квадратное уранение)")
 	fmt.Scan(&action1)
 	if action1 == 1 {
 		fmt.Println("Введите число, которое хотите возвести в x степень:")
@@ -87,5 +87,63 @@ func second_act() {
 		fmt.Println("Введите число, из которого хотите извлечь корень:")
 		fmt.Scan(&number1)
 		fmt.Println(math.Sqrt(float64(number1)))
+	} else if action1 == 3 {
+		square_leveling()
 	}
+}
+
+func square_leveling() {
+	var (
+		square_number           uint64
+		square_number1          uint64
+		square_number2          uint64
+		square_action           uint64
+		square_action1          uint64
+		answer_x1               uint64
+		answer_x2               uint64
+		discriminant            uint64
+		square_counter_question uint64
+	)
+
+	fmt.Println("Уровнение:\n a * x^2 _ b * x _ c = 0")
+
+	fmt.Println("Введите число a:")
+	fmt.Scan(&square_number)
+	fmt.Println("Введите число b:")
+	fmt.Scan(&square_number1)
+	fmt.Println("Введите число c:")
+	fmt.Scan(&square_number2)
+	fmt.Println("Введите первый знак(между a и b):")
+	fmt.Scan(&square_action)
+	fmt.Println("Введите первый знак(между b и c):")
+	fmt.Scan(&square_action1)
+
+	fmt.Println("Ваше уравнение выглядит так:")
+
+	fmt.Println(square_number, "* x^2", square_action, square_number1, "* x", square_action1, square_number2, "= 0")
+
+	fmt.Println("Выберите: 1 - да ; 2 - нет")
+
+	fmt.Scan(&square_counter_question)
+
+	if square_counter_question == 1 {
+		discriminant = uint64(math.Pow(float64(square_number1), 2)) - 4*square_number*square_number2
+
+		if discriminant > 0 {
+			fmt.Println("Дискриминант =", discriminant)
+			answer_x1 = ((-square_number1) - uint64(math.Sqrt(float64(discriminant)))) / (2 * square_number)
+			answer_x2 = ((-square_number1) + uint64(math.Sqrt(float64(discriminant)))) / (2 * square_number)
+			fmt.Println("Ответ:")
+			fmt.Println("x1 =", answer_x1)
+			fmt.Println("x2 =", answer_x2)
+		} else if discriminant == 0 {
+			fmt.Println("Дискриминант =", discriminant)
+			answer_x1 = (-square_number1) / (2 * square_number)
+			fmt.Println("Ответ:")
+			fmt.Println("x =", answer_x1)
+		} else {
+			fmt.Println("Так как дискриминант меньше 0, то корней нет!")
+		}
+	}
+
 }
