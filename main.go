@@ -147,3 +147,5 @@ func square_leveling() {
 	}
 
 }
+
+//о ма гат
