@@ -94,18 +94,18 @@ func second_act() {
 
 func square_leveling() {
 	var (
-		square_number           uint64
-		square_number1          uint64
-		square_number2          uint64
-		square_action           uint64
-		square_action1          uint64
-		answer_x1               uint64
-		answer_x2               uint64
-		discriminant            uint64
-		square_counter_question uint64
+		square_number           int64
+		square_number1          int64
+		square_number2          int64
+		square_action           string
+		square_action1          string
+		answer_x1               float64
+		answer_x2               float64
+		discriminant            float64
+		square_counter_question int64
 	)
 
-	fmt.Println("Уровнение:\n a * x^2 _ b * x _ c = 0")
+	fmt.Println("Уравнение:\n a * x^2 ± b * x ± c = 0")
 
 	fmt.Println("Введите число a:")
 	fmt.Scan(&square_number)
@@ -113,39 +113,45 @@ func square_leveling() {
 	fmt.Scan(&square_number1)
 	fmt.Println("Введите число c:")
 	fmt.Scan(&square_number2)
-	fmt.Println("Введите первый знак(между a и b):")
+
+	fmt.Println("Введите первый знак (между a и b):")
 	fmt.Scan(&square_action)
-	fmt.Println("Введите первый знак(между b и c):")
+	fmt.Println("Введите второй знак (между b и c):")
 	fmt.Scan(&square_action1)
 
-	fmt.Println("Ваше уравнение выглядит так:")
+	if square_action == "-" {
+		square_number1 = -square_number1
+	}
+	if square_action1 == "-" {
+		square_number2 = -square_number2
+	}
 
-	fmt.Println(square_number, "* x^2", square_action, square_number1, "* x", square_action1, square_number2, "= 0")
+	fmt.Printf("Ваше уравнение выглядит так: %d * x^2 %s %d * x %s %d = 0\n", square_number, square_action, int64(math.Abs(float64(square_number1))), square_action1, int64(math.Abs(float64(square_number2))))
 
-	fmt.Println("Выберите: 1 - да ; 2 - нет")
-
+	fmt.Println("Выберите: 1 - продолжить; 2 - отмена")
 	fmt.Scan(&square_counter_question)
 
 	if square_counter_question == 1 {
-		discriminant = uint64(math.Pow(float64(square_number1), 2)) - 4*square_number*square_number2
+		discriminant = math.Pow(float64(square_number1), 2) - 4*float64(square_number)*float64(square_number2)
 
 		if discriminant > 0 {
 			fmt.Println("Дискриминант =", discriminant)
-			answer_x1 = ((-square_number1) - uint64(math.Sqrt(float64(discriminant)))) / (2 * square_number)
-			answer_x2 = ((-square_number1) + uint64(math.Sqrt(float64(discriminant)))) / (2 * square_number)
+			fmt.Println("Так как дискриминант > 0:")
+			answer_x1 = (-float64(square_number1) - math.Sqrt(discriminant)) / (2 * float64(square_number))
+			answer_x2 = (-float64(square_number1) + math.Sqrt(discriminant)) / (2 * float64(square_number))
 			fmt.Println("Ответ:")
 			fmt.Println("x1 =", answer_x1)
 			fmt.Println("x2 =", answer_x2)
 		} else if discriminant == 0 {
 			fmt.Println("Дискриминант =", discriminant)
-			answer_x1 = (-square_number1) / (2 * square_number)
+			fmt.Println("Так как дискриминант = 0:")
+			answer_x1 = (-float64(square_number1)) / (2 * float64(square_number))
 			fmt.Println("Ответ:")
 			fmt.Println("x =", answer_x1)
 		} else {
 			fmt.Println("Так как дискриминант меньше 0, то корней нет!")
 		}
 	}
-
 }
 
 //о ма гат
